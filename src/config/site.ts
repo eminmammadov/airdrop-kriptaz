@@ -7,7 +7,7 @@ import { SiteConfig } from '@/types/seo';
 export const siteConfig: SiteConfig = {
   name: 'Kriptaz Airdrop and Liquidity Staking',
   description: 'Earn free tokens through liquidity staking by participating in the Kriptaz airdrop campaign.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://airdrop-kriptaz.vercel.app/',
   ogImage: '/images/og-image.png',
   links: {
     twitter: 'https://twitter.com/kriptazChain',

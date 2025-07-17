@@ -8,7 +8,7 @@ export const metadata: Metadata = generatePageMetadata({
   keywords: pageSEOConfigs.home.keywords,
   ogType: 'website',
   twitterCard: 'summary_large_image',
-  ogImage: 'http://localhost:3000/images/og-image.png',
+  ogImage: 'https://airdrop-kriptaz.vercel.app//images/og-image.png',
 }, '/');
 
 export default function Home() {

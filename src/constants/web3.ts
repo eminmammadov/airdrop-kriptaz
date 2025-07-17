@@ -8,7 +8,7 @@ export const REOWN_CONFIG = {
   PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID || '',
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'Airdrop Kriptaz',
   APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'KA Token airdrop platform',
-  APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000',
+  APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://airdrop-kriptaz.vercel.app/',
   APP_ICON: process.env.NEXT_PUBLIC_APP_ICON || 'https://avatars.githubusercontent.com/u/179229932'
 } as const;
 

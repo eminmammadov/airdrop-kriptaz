@@ -9,7 +9,7 @@ import { Web3Provider } from "@/providers/Web3Provider";
 
 export const metadata: Metadata = {
   ...generateMetadata(defaultSEO),
-  metadataBase: new URL(defaultSEO.canonical || 'http://localhost:3000'),
+  metadataBase: new URL(defaultSEO.canonical || 'https://airdrop-kriptaz.vercel.app/'),
 };
 
 export default function RootLayout({
