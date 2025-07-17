@@ -5,7 +5,7 @@ import { KamonadShare } from './KamonadShare';
 import { KaPrice } from './KaPrice';
 import { FooterLinks } from './FooterLinks';
 import Link from 'next/link';
-import { Droplets } from 'lucide-react';
+import { FaDroplet } from 'react-icons/fa6';
 
 export function Footer() {
   return (
@@ -22,7 +22,7 @@ export function Footer() {
               rel="noopener noreferrer"
               className="hidden sm:flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200"
             >
-              <Droplets className="h-4 w-4" />
+              <FaDroplet className="h-4 w-4" />
               <span className="text-sm font-medium">Faucet</span>
             </Link>
 

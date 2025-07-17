@@ -1,20 +1,20 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ChartBarBig, Twitter, Linkedin, Instagram, Facebook, Send, Youtube, FileText, Droplets } from 'lucide-react';
+import { FaChartBar, FaXTwitter, FaLinkedin, FaInstagram, FaFacebook, FaTelegram, FaYoutube, FaFileExport, FaDroplet } from 'react-icons/fa6';
 
 const socialMediaLinks = [
-  { name: 'Twitter', href: 'https://twitter.com/kriptazChain', icon: Twitter },
-  { name: 'LinkedIn', href: 'https://linkedin.com/company/kriptazblockchain', icon: Linkedin },
-  { name: 'Instagram', href: 'https://instagram.com/kriptaz', icon: Instagram },
-  { name: 'Facebook', href: 'https://www.facebook.com/groups/kriptoazerbaijan', icon: Facebook },
-  { name: 'Telegram', href: 'https://t.me/kriptoazerbaycancommunity', icon: Send },
-  { name: 'Youtube', href: 'https://www.youtube.com/@kriptazChain', icon: Youtube },
+  { name: 'Twitter', href: 'https://twitter.com/kriptazChain', icon: FaXTwitter },
+  { name: 'LinkedIn', href: 'https://linkedin.com/company/kriptazblockchain', icon: FaLinkedin },
+  { name: 'Instagram', href: 'https://instagram.com/kriptaz', icon: FaInstagram },
+  { name: 'Facebook', href: 'https://www.facebook.com/groups/kriptoazerbaijan', icon: FaFacebook },
+  { name: 'Telegram', href: 'https://t.me/kriptoazerbaycancommunity', icon: FaTelegram },
+  { name: 'Youtube', href: 'https://www.youtube.com/@kriptazChain', icon: FaYoutube },
 ];
 
 const resourceLinks = [
-  { name: 'Documents', href: 'https://docs.kriptaz.com/', icon: FileText },
-  { name: 'Faucet', href: 'https://drip.tools/', icon: Droplets },
+  { name: 'Documents', href: 'https://docs.kriptaz.com/', icon: FaFileExport },
+  { name: 'Faucet', href: 'https://drip.tools/', icon: FaDroplet },
 ];
 
 export function Resources() {
@@ -41,7 +41,7 @@ export function Resources() {
         className="flex items-center justify-center bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-md px-3 py-1.5 text-gray-300 hover:text-black hover:bg-white transition-all duration-200 cursor-pointer h-[34px] w-[42px]"
         aria-label="Resources"
       >
-        <ChartBarBig className="h-4 w-4" />
+        <FaChartBar className="h-4 w-4" />
       </button>
 
       {isOpen && (
