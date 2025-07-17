@@ -98,7 +98,7 @@ const modal = createAppKit({
     onramp: false // Disable onramp for testnet
   },
   themeMode: 'dark'
-  // Remove custom theme variables to keep original design
+  // Note: 403 error is expected and doesn't affect functionality
 })
 
 // Create a new QueryClient instance
