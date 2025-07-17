@@ -32,10 +32,13 @@ export const CACHE_CONFIG = {
 
 // Price Configuration
 export const PRICE_CONFIG = {
-  FALLBACK_PRICE: 0.000996,
-  MIN_PRICE: 0.000001,
-  MAX_PRICE: 1000,
-  UPDATE_INTERVAL: 20000 // 20 seconds
+  FALLBACK_PRICE: 0.000996, // Will be updated dynamically
+  MIN_PRICE: 0.000001, // Minimum reasonable price
+  MAX_PRICE: 100000, // Much higher ceiling for growth
+  UPDATE_INTERVAL: 20000, // 20 seconds
+  // Dynamic validation thresholds
+  MAX_PRICE_CHANGE_PERCENT: 500, // 500% max change per update (prevents API bugs)
+  PRICE_STALENESS_HOURS: 24, // Fallback price valid for 24 hours
 } as const;
 
 // API Response Status Codes

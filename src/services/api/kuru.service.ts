@@ -5,6 +5,7 @@
 
 import { PriceData, KuruMarketData, ApiResponse } from '@/types/api';
 import { KURU_API, KA_TOKEN } from '@/constants/api';
+import { PriceValidatorService } from '@/services/validation/price-validator.service';
 
 export class KuruApiService {
   
@@ -30,11 +31,11 @@ export class KuruApiService {
       }
 
       const data = await response.json();
-      
+
       if (!data.success || !data.data?.data) {
+        console.error('Invalid KURU API response structure:', data);
         throw new Error('Invalid KURU API response structure');
       }
-
       return {
         success: true,
         data: data.data.data,
@@ -57,10 +58,10 @@ export class KuruApiService {
   static calculateKAPrice(marketData: KuruMarketData): PriceData {
     const kaMonPrice = marketData.lastPrice; // KA/MON price
     const monUsdPrice = marketData.lastPriceMonUSD; // MON/USD price
-    
+
     // Calculate KA/USD price
     const kaUsdPrice = kaMonPrice * monUsdPrice;
-    
+
     return {
       price: kaUsdPrice,
       volume24h: marketData.volume24h,
@@ -85,11 +86,14 @@ export class KuruApiService {
     }
 
     try {
-      const priceData = this.calculateKAPrice(marketResponse.data);
-      
+      const rawPriceData = this.calculateKAPrice(marketResponse.data);
+
+      // Validate price with smart thresholds
+      const validatedPriceData = PriceValidatorService.validatePriceData(rawPriceData);
+
       return {
         success: true,
-        data: priceData,
+        data: validatedPriceData,
         timestamp: Date.now()
       };
 
