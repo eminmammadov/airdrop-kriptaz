@@ -48,14 +48,17 @@ export const COLORS = {
 // Color utility functions
 export const getColorValue = (colorPath: string): string => {
   const keys = colorPath.split('.');
-  let value: any = COLORS;
-  
+  let value: unknown = COLORS;
+
   for (const key of keys) {
-    value = value[key];
-    if (!value) return '#000000'; // fallback
+    if (typeof value === 'object' && value !== null && key in value) {
+      value = (value as Record<string, unknown>)[key];
+    } else {
+      return '#000000'; // fallback
+    }
   }
-  
-  return value;
+
+  return typeof value === 'string' ? value : '#000000';
 };
 
 // Gradient combinations

@@ -74,7 +74,7 @@ export function useWallet(): UseWalletReturn {
   };
 
   // Switch network function
-  const switchNetwork = async (targetChainId: number): Promise<void> => {
+  const switchNetwork = async (): Promise<void> => {
     try {
       open({ view: 'Networks' });
     } catch (error) {
@@ -99,7 +99,7 @@ export function useWallet(): UseWalletReturn {
     address,
     chainId,
     balance: balance?.formatted,
-    ensName,
+    ensName: ensName || undefined,
     
     // Computed values
     networkName: chainId ? getNetworkName(chainId) : undefined,

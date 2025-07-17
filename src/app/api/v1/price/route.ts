@@ -24,15 +24,12 @@ class PriceController {
       // Check cache first
       const cachedPrice = PriceCacheService.get(CACHE_KEY);
       if (cachedPrice) {
-        console.log('Returning cached KA price');
         return {
           success: true,
           data: cachedPrice,
           timestamp: Date.now()
         };
       }
-
-      console.log('Fetching fresh KA price from KURU API...');
 
       // Fetch from KURU API
       const apiResponse = await KuruApiService.getKAPrice();
@@ -41,7 +38,6 @@ class PriceController {
         // Cache the result
         PriceCacheService.set(CACHE_KEY, apiResponse.data);
 
-        console.log(`KA price fetched: $${apiResponse.data.price}`);
         return apiResponse;
       }
 
