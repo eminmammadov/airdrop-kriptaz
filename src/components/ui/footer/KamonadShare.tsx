@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FaXTwitter } from 'react-icons/fa6';
+import { IoShareSocial } from 'react-icons/io5';
 
 export function KamonadShare() {
   const tweetText = "woke up bullish on @monad! kaMonad by @kriptazChain";
@@ -14,7 +14,7 @@ export function KamonadShare() {
       rel="noopener noreferrer"
       className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200"
     >
-      <FaXTwitter className="h-4 w-4" />
+      <IoShareSocial className="h-4 w-4" />
       <span className="text-sm font-medium">kamonad</span>
     </a>
   );
