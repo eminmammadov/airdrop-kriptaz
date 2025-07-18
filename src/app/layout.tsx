@@ -23,7 +23,7 @@ export default function RootLayout({
         <FontPreloader />
       </head>
       <body
-        className="antialiased font-kriptaz overflow-x-hidden h-screen"
+        className="antialiased font-kriptaz overflow-hidden h-screen"
         data-new-gr-c-s-check-loaded="14.1244.0"
         data-gr-ext-installed=""
       >
@@ -31,7 +31,7 @@ export default function RootLayout({
           <LayoutWrapper>
             <div className="flex flex-col h-screen">
               <Header />
-              <main className="flex-1 overflow-y-auto pt-16 pb-12 main-content">
+              <main className="flex-1 overflow-hidden pt-16 pb-12 main-content">
                 {children}
               </main>
               <Footer />

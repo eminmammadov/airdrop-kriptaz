@@ -36,7 +36,7 @@ export function DashboardClient({ address }: DashboardClientProps) {
   // Show loading while checking authentication
   if (!isConnected || connectedAddress?.toLowerCase() !== address.toLowerCase()) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="h-full bg-black flex items-center justify-center overflow-hidden">
         <div className="text-center">
           <div className="w-8 h-8 border-2 border-accent-yellow border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-gray-300">Verifying access...</p>
@@ -48,9 +48,9 @@ export function DashboardClient({ address }: DashboardClientProps) {
   const shortAddress = `${address.slice(0, 6)}...${address.slice(-4)}`;
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="h-full bg-black text-white overflow-hidden flex flex-col">
       {/* Header */}
-      <div className="bg-gradient-to-r from-forest-black to-ui-bg border-b border-gray-700/50">
+      <div className="bg-gradient-to-r from-forest-black to-ui-bg border-b border-gray-700/50 flex-shrink-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-gradient-to-br from-accent-yellow to-accent-yellow-green rounded-full flex items-center justify-center">
@@ -65,7 +65,7 @@ export function DashboardClient({ address }: DashboardClientProps) {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 overflow-y-auto">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* KA Token Balance */}

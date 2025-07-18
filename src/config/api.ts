@@ -3,17 +3,30 @@
  * All API-related configurations in one place
  */
 
-// Environment validation
+// Environment validation - Only validate truly required variables
 const requiredEnvVars = {
-  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
-  DATABASE_URL: process.env.DATABASE_URL,
   NODE_ENV: process.env.NODE_ENV || 'development'
+};
+
+// Optional environment variables (with fallbacks)
+const optionalEnvVars = {
+  ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY || '',
+  DATABASE_URL: process.env.DATABASE_URL || ''
 };
 
 // Validate required environment variables
 for (const [key, value] of Object.entries(requiredEnvVars)) {
   if (!value) {
     throw new Error(`Missing required environment variable: ${key}`);
+  }
+}
+
+// Warn about missing optional variables in development
+if (process.env.NODE_ENV === 'development') {
+  for (const [key, value] of Object.entries(optionalEnvVars)) {
+    if (!value) {
+      console.warn(`Optional environment variable missing: ${key}`);
+    }
   }
 }
 

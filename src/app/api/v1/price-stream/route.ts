@@ -28,6 +28,17 @@ class KAPriceStreamer {
   // Get token metadata from Alchemy
   async getTokenMetadata(): Promise<TokenMetadata | null> {
     try {
+      // Check if Alchemy API key is available
+      if (!EXTERNAL_APIS.ALCHEMY.API_KEY) {
+        console.warn('Alchemy API key not available, using fallback metadata');
+        return {
+          decimals: KA_TOKEN.DECIMALS,
+          symbol: KA_TOKEN.SYMBOL,
+          name: KA_TOKEN.NAME,
+          logo: null
+        };
+      }
+
       const payload = {
         id: 1,
         jsonrpc: "2.0",
@@ -54,7 +65,14 @@ class KAPriceStreamer {
     } catch (error) {
       console.warn('Token metadata error:', error);
     }
-    return null;
+
+    // Fallback to hardcoded metadata
+    return {
+      decimals: KA_TOKEN.DECIMALS,
+      symbol: KA_TOKEN.SYMBOL,
+      name: KA_TOKEN.NAME,
+      logo: null
+    };
   }
 
   // Calculate real price from KURU API
@@ -117,7 +135,7 @@ class KAPriceStreamer {
     
     return {
       price,
-      source: 'Alchemy Monad API (Real-time)',
+      source: EXTERNAL_APIS.ALCHEMY.API_KEY ? 'Alchemy Monad API (Real-time)' : 'KURU Exchange API (Real-time)',
       timestamp: Date.now()
     };
   }
