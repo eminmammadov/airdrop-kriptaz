@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import type { FontLoadingHookReturn, FontLoadingState } from '@/types/fonts';
+import type { FontLoadingHookReturn, FontLoadingState } from '@/shared/types/fonts';
 import { getFallbackManager } from '@/lib/fonts/fallback';
 
 /**

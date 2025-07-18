@@ -3,13 +3,15 @@
  * Centralized configuration for Web3 integration
  */
 
+import { APP_LINKS } from '@/config/links';
+
 // Reown AppKit Configuration
 export const REOWN_CONFIG = {
   PROJECT_ID: process.env.NEXT_PUBLIC_PROJECT_ID || '7b16f743f4bdbd26b8bce8c627bf1933',
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'Airdrop Kriptaz',
   APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'KA Token airdrop platform',
-  APP_URL: process.env.NEXT_PUBLIC_APP_URL || 'https://airdrop-kriptaz.vercel.app',
-  APP_ICON: process.env.NEXT_PUBLIC_APP_ICON || 'https://avatars.githubusercontent.com/u/179229932'
+  APP_URL: process.env.NEXT_PUBLIC_APP_URL || APP_LINKS.production,
+  APP_ICON: process.env.NEXT_PUBLIC_APP_ICON || 'https://docs.kriptaz.com/ka.jpg'
 } as const;
 
 // Network Configuration

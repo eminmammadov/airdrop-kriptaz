@@ -7,7 +7,7 @@ import { createAppKit } from '@reown/appkit/react'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { QueryClient } from '@tanstack/react-query'
 import { cookieStorage, createStorage } from 'wagmi'
-import { REOWN_CONFIG, NETWORK_CONFIG, validateWeb3Config } from '@/constants/web3'
+import { REOWN_CONFIG, NETWORK_CONFIG, validateWeb3Config } from '@/shared/constants/web3'
 import { defineChain } from 'viem'
 import type { AppKitNetwork } from '@reown/appkit/networks'
 

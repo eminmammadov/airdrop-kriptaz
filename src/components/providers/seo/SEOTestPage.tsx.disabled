@@ -1,0 +1,446 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { SocialShare } from './SocialShare';
+import { runFullSEOAudit, SEOAuditResult } from '@/lib/seo/testing';
+import { siteConfig, defaultSEO } from '@/config/site';
+import { generateSocialSharingUrls } from '@/lib/seo/utils';
+import { Typography } from '@/components/typography';
+
+/**
+ * SEO Test Page Component
+ * Comprehensive testing environment for SEO functionality
+ */
+export function SEOTestPage() {
+  const [auditResult, setAuditResult] = useState<SEOAuditResult | null>(null);
+  const [isRunningAudit, setIsRunningAudit] = useState(false);
+  const [currentUrl, setCurrentUrl] = useState('');
+  const [metaTags, setMetaTags] = useState<{[key: string]: string}>({});
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setCurrentUrl(window.location.href);
+
+      // Read meta tags
+      const tags: {[key: string]: string} = {};
+      tags.title = document.title;
+      tags.description = document.querySelector('meta[name="description"]')?.getAttribute('content') || 'Not found';
+      tags.ogTitle = document.querySelector('meta[property="og:title"]')?.getAttribute('content') || 'Not found';
+      tags.ogDescription = document.querySelector('meta[property="og:description"]')?.getAttribute('content') || 'Not found';
+      tags.ogType = document.querySelector('meta[property="og:type"]')?.getAttribute('content') || 'Not found';
+      tags.ogImage = document.querySelector('meta[property="og:image"]')?.getAttribute('content') || 'Not found';
+      tags.twitterCard = document.querySelector('meta[name="twitter:card"]')?.getAttribute('content') || 'Not found';
+      tags.twitterSite = document.querySelector('meta[name="twitter:site"]')?.getAttribute('content') || 'Not found';
+      tags.twitterTitle = document.querySelector('meta[name="twitter:title"]')?.getAttribute('content') || 'Not found';
+      tags.twitterImage = document.querySelector('meta[name="twitter:image"]')?.getAttribute('content') || 'Not found';
+
+      setMetaTags(tags);
+    }
+  }, []);
+
+  const runSEOAudit = async () => {
+    setIsRunningAudit(true);
+    try {
+      const result = await runFullSEOAudit(defaultSEO, currentUrl);
+      setAuditResult(result);
+    } catch (error) {
+      console.error('SEO Audit failed:', error);
+    } finally {
+      setIsRunningAudit(false);
+    }
+  };
+
+  const socialUrls = generateSocialSharingUrls(
+    currentUrl,
+    'Kriptaz Airdrop and Liquidity Staking - Free Token Rewards',
+    'Join the blockchain revolution and earn free tokens through liquidity staking!'
+  );
+
+  return (
+    <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20">
+      <main className="max-w-4xl mx-auto space-y-12">
+        {/* Hero Section */}
+        <section className="text-center space-y-6">
+          <Typography as="h1" className="text-6xl text-white font-bold">
+            SEO Test Environment
+          </Typography>
+          <Typography as="p" className="text-xl text-gray-300 max-w-2xl mx-auto">
+            Comprehensive testing environment for SEO optimization, social media integration,
+            and performance monitoring of the Kriptaz airdrop campaign.
+          </Typography>
+        </section>
+
+        {/* Current Page Info */}
+        <section className="space-y-6">
+          <Typography as="h2" className="text-white font-bold text-2xl">
+            Current Page Information
+          </Typography>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="font-medium text-white">Page URL:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-2 rounded break-all text-gray-900">
+                  {currentUrl}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="font-medium text-white">Site Name:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-2 rounded text-gray-900">
+                  {siteConfig.name}
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="font-medium text-white">Description:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-2 rounded text-gray-900">
+                  {siteConfig.description}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="font-medium text-white">Base URL:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-2 rounded text-gray-900">
+                  {siteConfig.url}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Meta Tags Test */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            Meta Tags Information
+          </Heading>
+          <div className="space-y-4">
+            <div>
+              <Text variant="body" className="mb-2 font-medium text-white">Title:</Text>
+              <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                {metaTags.title || 'Loading...'}
+              </div>
+            </div>
+            <div>
+              <Text variant="body" className="mb-2 font-medium text-white">Meta Description:</Text>
+              <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                {metaTags.description || 'Loading...'}
+              </div>
+            </div>
+            <div>
+              <Text variant="body" className="mb-2 font-medium text-white">Keywords:</Text>
+              <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                {defaultSEO.keywords?.join(', ') || 'Not specified'}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* OG Image Preview */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            OG Image Preview
+          </Heading>
+          <div className="space-y-4">
+            <div>
+              <Text variant="body" className="mb-2 font-medium text-white">Image URL:</Text>
+              <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded break-all text-gray-900">
+                {siteConfig.url}{siteConfig.ogImage}
+              </div>
+            </div>
+            <div>
+              <Text variant="body" className="mb-2 font-medium text-white">Image Preview:</Text>
+              <div className="relative w-full max-w-2xl">
+                <Image
+                  src={siteConfig.ogImage}
+                  alt="OG Image Preview"
+                  width={1200}
+                  height={630}
+                  className="w-full h-auto border rounded-lg shadow-sm"
+                  onError={() => {
+                    console.error('OG Image failed to load:', siteConfig.ogImage);
+                  }}
+                />
+              </div>
+              <Text variant="caption" className="mt-2">
+                <strong>Direct Link:</strong>
+                <a
+                  href={`${siteConfig.url}${siteConfig.ogImage}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 text-blue-600 hover:underline"
+                >
+                  Test Image Access
+                </a>
+              </Text>
+            </div>
+          </div>
+        </section>
+
+        {/* Open Graph Test */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            Open Graph Tags
+          </Heading>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">OG Title:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.ogTitle || 'Loading...'}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">OG Type:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.ogType || 'Loading...'}
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">OG Description:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.ogDescription || 'Loading...'}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">OG Image:</Text>
+                <div className={`font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded break-all ${metaTags.ogImage === 'Not found' ? 'text-red-600' : 'text-gray-900'}`}>
+                  {metaTags.ogImage || 'Loading...'}
+                </div>
+                <Text variant="caption" className="mt-1 text-gray-400">
+                  Expected: {siteConfig.url}{siteConfig.ogImage}
+                </Text>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Twitter Cards Test */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            Twitter Cards
+          </Heading>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">Twitter Card:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.twitterCard || 'Loading...'}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">Twitter Title:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.twitterTitle || 'Loading...'}
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">Twitter Site:</Text>
+                <div className="font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded text-gray-900">
+                  {metaTags.twitterSite || 'Loading...'}
+                </div>
+              </div>
+              <div>
+                <Text variant="body" className="mb-2 font-medium text-white">Twitter Image:</Text>
+                <div className={`font-mono text-sm bg-gray-50 border border-gray-300 p-3 rounded break-all ${metaTags.twitterImage === 'Not found' ? 'text-red-600' : 'text-gray-900'}`}>
+                  {metaTags.twitterImage || 'Loading...'}
+                </div>
+                <Text variant="caption" className="mt-1 text-gray-400">
+                  Expected: {siteConfig.url}{siteConfig.ogImage}
+                </Text>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Social Sharing Test */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            Social Sharing Test
+          </Heading>
+          <div className="space-y-6">
+            <div>
+              <Heading level={3} weight="demibold" className="mb-3 text-white">Button Variant:</Heading>
+              <SocialShare
+                url={currentUrl}
+                title="Kriptaz Airdrop and Liquidity Staking - Free Token Rewards"
+                description="Join the blockchain revolution and earn free tokens through liquidity staking!"
+                hashtags={['KriptazAirdrop', 'DeFi', 'LiquidityStaking', 'FreeTokens']}
+                variant="buttons"
+                size="md"
+              />
+            </div>
+
+            <div>
+              <Heading level={3} weight="demibold" className="mb-3 text-white">Icon Variant:</Heading>
+              <SocialShare
+                url={currentUrl}
+                title="Kriptaz Airdrop and Liquidity Staking"
+                description="Earn free tokens through liquidity staking!"
+                variant="icons"
+                size="lg"
+                showLabels={false}
+              />
+            </div>
+
+            <div>
+              <Heading level={3} weight="demibold" className="mb-3 text-white">Dropdown Variant:</Heading>
+              <SocialShare
+                url={currentUrl}
+                title="Kriptaz Airdrop Campaign"
+                description="Join the blockchain revolution!"
+                variant="dropdown"
+                size="md"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Social URLs Preview */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            Generated Social URLs
+          </Heading>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {Object.entries(socialUrls).map(([platform, url]) => (
+              <div key={platform} className="space-y-2">
+                <Text variant="body" className="font-medium capitalize text-white">{platform}:</Text>
+                <div className="font-mono text-xs bg-gray-50 border border-gray-300 p-3 rounded break-all">
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline"
+                  >
+                    {url}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SEO Audit */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            SEO Audit
+          </Heading>
+
+          <button
+            onClick={runSEOAudit}
+            disabled={isRunningAudit}
+            className="px-6 py-3 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {isRunningAudit ? 'Running Audit...' : 'Run SEO Audit'}
+          </button>
+
+          {auditResult && (
+            <div className="space-y-6">
+              <div className="bg-gray-50 border border-gray-300 p-4 rounded">
+                <div className="flex items-center gap-4">
+                  <div className={`text-3xl font-bold ${auditResult.overallScore >= 80 ? 'text-green-600' : auditResult.overallScore >= 60 ? 'text-yellow-600' : 'text-red-600'}`}>
+                    {auditResult.overallScore}/100
+                  </div>
+                  <div>
+                    <Text variant="body" className="font-medium text-white">
+                      {auditResult.passedTests}/{auditResult.totalTests} tests passed
+                    </Text>
+                    <Text variant="body" className="font-medium text-white">
+                      {auditResult.failedTests} tests failed
+                    </Text>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <Heading level={4} weight="demibold" className="mb-3 text-green-400">
+                    ✅ Passed Tests
+                  </Heading>
+                  <div className="space-y-2">
+                    {auditResult.results.filter(r => r.passed).map((result, index) => (
+                      <div key={index} className="bg-green-50 p-3 rounded border border-green-200">
+                        <Text variant="body" className="font-medium text-gray-800">{result.test}:</Text>
+                        <Text variant="caption" className="text-gray-700">{result.message}</Text>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Heading level={4} weight="demibold" className="mb-3 text-red-400">
+                    ❌ Failed Tests
+                  </Heading>
+                  <div className="space-y-2">
+                    {auditResult.results.filter(r => !r.passed).map((result, index) => (
+                      <div key={index} className="bg-red-50 p-3 rounded border border-red-200">
+                        <Text variant="body" className="font-medium text-gray-800">{result.test}:</Text>
+                        <Text variant="caption" className="text-gray-700">{result.message}</Text>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {auditResult.recommendations.length > 0 && (
+                <div>
+                  <Heading level={4} weight="demibold" className="mb-3 text-blue-400">
+                    💡 Recommendations
+                  </Heading>
+                  <ul className="space-y-2">
+                    {auditResult.recommendations.map((rec, index) => (
+                      <li key={index} className="bg-blue-50 p-3 rounded border border-blue-200">
+                        <Text variant="body" className="text-gray-800">{rec}</Text>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </section>
+
+        {/* External Tools */}
+        <section className="space-y-6">
+          <Heading level={2} weight="bold" className="text-white">
+            External SEO Tools
+          </Heading>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a
+              href={`https://developers.facebook.com/tools/debug/?q=${encodeURIComponent(currentUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 border rounded hover:bg-gray-50 transition-colors"
+            >
+              <Text variant="body" className="font-medium text-gray-800">Facebook Debugger</Text>
+              <Text variant="caption" className="text-gray-600">Test Open Graph tags</Text>
+            </a>
+
+            <a
+              href={`https://cards-dev.twitter.com/validator?url=${encodeURIComponent(currentUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 border rounded hover:bg-gray-50 transition-colors"
+            >
+              <Text variant="body" className="font-medium text-gray-800">Twitter Card Validator</Text>
+              <Text variant="caption" className="text-gray-600">Test Twitter Cards</Text>
+            </a>
+
+            <a
+              href={`https://www.linkedin.com/post-inspector/inspect/${encodeURIComponent(currentUrl)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 border rounded hover:bg-gray-50 transition-colors"
+            >
+              <Text variant="body" className="font-medium text-gray-800">LinkedIn Inspector</Text>
+              <Text variant="caption" className="text-gray-600">Test LinkedIn sharing</Text>
+            </a>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}

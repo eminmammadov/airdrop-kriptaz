@@ -9,25 +9,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteConfig.url;
   const currentDate = new Date().toISOString();
 
-  // Static pages
+  // Static pages for Kriptaz Airdrop
   const staticPages = [
     {
       url: baseUrl,
       lastModified: currentDate,
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'daily' as const,
       priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/fonts-test`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
+    }
   ];
 
-  // Dynamic pages can be added here
-  // Example: blog posts, product pages, etc.
-  const dynamicPages: MetadataRoute.Sitemap = [];
+  // Note: User dashboard pages are intentionally excluded from sitemap
+  // for privacy and security reasons (user-specific content)
 
-  return [...staticPages, ...dynamicPages];
+  return staticPages;
 }

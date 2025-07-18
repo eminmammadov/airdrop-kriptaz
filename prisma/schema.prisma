@@ -1,0 +1,32 @@
+// Kriptaz Airdrop - Production Prisma Schema
+// MongoDB database schema for user management and wallet connections
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// User Model - Stores wallet connection and user data
+model User {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  walletAddress     String   @unique @map("wallet_address")
+
+  // Connection tracking
+  firstConnectedAt  DateTime @default(now()) @map("first_connected_at")
+  lastConnectedAt   DateTime @default(now()) @map("last_connected_at")
+  connectionCount   Int      @default(1) @map("connection_count")
+
+  // User preferences and data
+  isActive          Boolean  @default(true) @map("is_active")
+
+  // Timestamps
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Indexes for performance
+  @@map("users")
+}

@@ -1,0 +1,24 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://airdrop-kriptaz.vercel.app/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /seo-test
+
+# Allow important pages
+Allow: /
+Allow: /dashboard
+Allow: /users/
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Additional security
+Disallow: /*.json$
+Disallow: /*?*
+Disallow: /*/dashboard*

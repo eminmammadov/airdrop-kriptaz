@@ -1,108 +1,103 @@
-# Airdrop Kriptaz - Custom Font System
+# Airdrop Kriptaz
 
-This is a [Next.js](https://nextjs.org) project with a comprehensive custom font management system using the Kriptaz font family.
+Professional KA Token price tracking application built with Next.js 15 and TypeScript.
 
-## 🎨 Font System Features
+## 🚀 Features
 
-- ✅ **Complete Google Fonts Removal**: No external font dependencies
-- ✅ **Custom Kriptaz Font Integration**: Professional typography with 7 weight variants
-- ✅ **Type Safety**: Full TypeScript support with custom type definitions
-- ✅ **Performance Optimized**: WOFF2/WOFF formats with font-display: swap
-- ✅ **Modular Architecture**: Reusable components and utilities
-- ✅ **Tailwind CSS v4 Integration**: Seamless integration with modern Tailwind
-- ✅ **Font Loading Hooks**: React hooks for font loading states
-- ✅ **Performance Monitoring**: Development tools for font performance tracking
+- **Real-time KA Token Price**: Live price data from KURU exchange
+- **Professional Architecture**: Clean, scalable, and maintainable codebase
+- **Caching System**: Optimized performance with intelligent caching
+- **Type Safety**: Full TypeScript implementation
+- **Modern UI**: Responsive design with Tailwind CSS
 
-## 🚀 Getting Started
+## 🏗️ Architecture
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the font system in action.
-
-## 📁 Font System Architecture
-
+### API Structure
 ```
 src/
-├── lib/fonts/           # Font management system
-│   ├── index.ts         # Main exports
-│   ├── types.ts         # TypeScript definitions
-│   ├── kriptaz.ts       # Kriptaz font configuration
-│   └── utils.ts         # Utility functions
-├── styles/
-│   └── fonts.css        # @font-face declarations
-├── components/ui/
-│   └── Typography.tsx   # Typography components
-├── hooks/
-│   └── useFonts.ts      # Font loading hooks
-└── types/
-    └── fonts.d.ts       # Global type declarations
+├── app/api/v1/price/          # Versioned API endpoints
+├── services/
+│   ├── api/                   # External API services
+│   ├── cache/                 # Caching services
+│   └── validation/            # Smart validation services
+├── config/
+│   ├── links.ts              # Centralized link management
+│   └── site.ts               # Site configuration
+├── types/                     # TypeScript definitions
+├── constants/                 # Application constants
+└── components/                # React components
 ```
 
-## 🎯 Font Usage Examples
+### Key Components
+- **KuruApiService**: Handles KURU exchange API interactions
+- **PriceCacheService**: Manages price data caching
+- **PriceValidatorService**: Smart price validation with dynamic thresholds
+- **PriceController**: Professional API controller
+- **KaPrice Component**: Real-time price display
+- **Centralized Links**: All URLs managed from `config/links.ts`
 
-### Basic Tailwind Classes
-```tsx
-<h1 className="font-kriptaz font-bold text-4xl">Bold Heading</h1>
-<p className="font-kriptaz font-regular text-base">Regular paragraph</p>
+## 🛠️ Getting Started
+
+### Prerequisites
+- Node.js 18+ 
+- npm/yarn/pnpm
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/eminmammadov/airdrop-kriptaz.git
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
 ```
 
-### Typography Components
-```tsx
-import { Heading, Text, Display } from '@/components/ui/Typography';
+Open [https://airdrop-kriptaz.vercel.app/](https://airdrop-kriptaz.vercel.app/) to view the application.
 
-<Display size="lg">Large Display Text</Display>
-<Heading level={2} weight="demibold">Section Heading</Heading>
-<Text variant="body">Body text content</Text>
-```
+## 📡 API Endpoints
 
-### Font Loading Hooks
-```tsx
-import { useFontLoading } from '@/hooks/useFonts';
+### GET /api/v1/price
+Returns KA token price data with caching.
 
-function Component() {
-  const { isLoaded, isLoading, error } = useFontLoading('Kriptaz');
-
-  if (isLoading) return <div>Loading fonts...</div>;
-  return <div className="font-kriptaz">Content</div>;
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "price": 0.001068945335762263,
+    "volume24h": 4.1,
+    "change24h": 5.10,
+    "source": "KURU API",
+    "timestamp": 1752762987357,
+    "cached": false
+  },
+  "timestamp": 1752762987357,
+  "cache_duration": 20
 }
 ```
 
-## 📊 Available Font Weights
+## 🔧 Configuration
 
-| Weight | Name | CSS Class | Numeric Value |
-|--------|------|-----------|---------------|
-| Thin | `font-thin` | 100 |
-| ExtraLight | `font-extralight` | 200 |
-| Light | `font-light` | 300 |
-| Regular | `font-normal` | 400 |
-| Medium | `font-medium` | 500 |
-| DemiBold | `font-demibold` | 600 |
-| Bold | `font-bold` | 700 |
+### Cache Settings
+- **Price TTL**: 20 seconds
+- **Update Interval**: 20 seconds
+- **Fallback Price**: $0.000996
 
-## 📚 Documentation
+### API Configuration
+- **KURU API**: https://api.kuru.io
+- **Timeout**: 10 seconds
+- **Retry Attempts**: 3
 
-For detailed documentation, see [docs/FONT_SYSTEM.md](docs/FONT_SYSTEM.md)
+## 🏢 Professional Standards
 
-## 🔧 Performance Features
+- **Clean Architecture**: Separation of concerns
+- **Error Handling**: Comprehensive error management
+- **Type Safety**: Full TypeScript coverage
+- **Performance**: Optimized caching and API calls
+- **Scalability**: Modular and extensible design
 
-- **Font Preloading**: Critical fonts (Regular, Bold, Medium) are preloaded
-- **WOFF2 Priority**: Modern format served first with WOFF fallback
-- **Font Display Swap**: Prevents invisible text during font load
-- **Performance Monitoring**: Development tools for tracking font metrics
-- **Caching Strategy**: Optimized font caching for better performance
+## 📝 License
 
-## 🚀 Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License.

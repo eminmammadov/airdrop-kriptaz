@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { FontPreloader, LayoutWrapper } from "@/components/fonts";
+import "../styles/globals.css";
+import { FontPreloader } from "@/components/typography";
+import { LayoutWrapper, Header, Footer } from "@/components/layout";
 import { generateMetadata } from "@/lib/seo/utils";
 import { defaultSEO } from "@/config/site";
-import { Header } from "@/components/ui/header/Header";
-import { Footer } from "@/components/ui/footer/Footer";
 import { Web3Provider } from "@/providers/Web3Provider";
 
 export const metadata: Metadata = {

@@ -1,20 +1,21 @@
-import { SiteConfig } from '@/types/seo';
+import { SiteConfig } from '@/shared/types/seo';
+import { SOCIAL_LINKS, APP_LINKS, CONTACT_LINKS } from '@/config/links';
 
 /**
  * Site Configuration
  * Central configuration for SEO, social media, and site metadata
  */
 export const siteConfig: SiteConfig = {
-  name: 'Kriptaz Airdrop and Liquidity Staking',
-  description: 'Earn free tokens through liquidity staking by participating in the Kriptaz airdrop campaign.',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://airdrop-kriptaz.vercel.app/',
+  name: process.env.NEXT_PUBLIC_APP_NAME || 'Kriptaz Airdrop and Liquidity Staking',
+  description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'Earn free tokens through liquidity staking by participating in the Kriptaz airdrop campaign.',
+  url: APP_LINKS.current, // Environment-first approach
   ogImage: '/images/og-image.png',
   links: {
-    twitter: 'https://twitter.com/kriptazChain',
-    facebook: 'https://facebook.com/kriptazChain',
-    linkedin: 'https://linkedin.com/company/kriptazblockchain',
-    instagram: 'https://instagram.com/kriptaz',
-    github: 'https://github.com/kriptazChain',
+    twitter: SOCIAL_LINKS.twitter,
+    facebook: SOCIAL_LINKS.facebook,
+    linkedin: SOCIAL_LINKS.linkedin,
+    instagram: SOCIAL_LINKS.instagram,
+    github: SOCIAL_LINKS.github,
   },
   creator: {
     name: 'Kriptaz Team',
@@ -97,7 +98,7 @@ export const organizationStructuredData = {
     {
       '@type': 'ContactPoint',
       contactType: 'customer service',
-      email: 'contact@kriptaz.com',
+      email: CONTACT_LINKS.email,
       availableLanguage: ['English', 'Turkish'],
     },
   ],

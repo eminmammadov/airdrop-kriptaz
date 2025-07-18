@@ -7,8 +7,8 @@
 
 import { useAccount, useBalance, useDisconnect, useEnsName } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
-import { formatAddress, formatBalance, getNetworkName } from '@/utils/web3.utils';
-import { type UseWalletReturn, type WalletConnectionResult } from '@/types/web3';
+import { formatAddress, formatBalance, getNetworkName } from '@/shared/utils/web3.utils';
+import { type UseWalletReturn, type WalletConnectionResult } from '@/shared/types/web3';
 
 export function useWallet(): UseWalletReturn {
   const { open } = useAppKit();

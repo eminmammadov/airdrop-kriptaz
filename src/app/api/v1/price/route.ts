@@ -4,10 +4,10 @@
  */
 
 import { NextResponse } from 'next/server';
-import { KuruApiService } from '@/services/api/kuru.service';
-import { PriceCacheService } from '@/services/cache/price-cache.service';
-import { PriceData, ApiResponse } from '@/types/api';
-import { PRICE_CONFIG, CACHE_CONFIG } from '@/constants/api';
+import { KuruApiService } from '@/infrastructure/api/kuru.service';
+import { PriceCacheService } from '@/infrastructure/cache/price-cache.service';
+import { PriceData, ApiResponse } from '@/shared/types/api';
+import { PRICE_CONFIG, CACHE_CONFIG } from '@/shared/constants/api';
 
 // Constants
 const CACHE_KEY = 'ka-price';
@@ -96,8 +96,15 @@ export async function GET(): Promise<NextResponse> {
       {
         status: 200,
         headers: {
-          'Cache-Control': 'public, max-age=20',
-          'Content-Type': 'application/json'
+          'Cache-Control': 'public, max-age=20, must-revalidate',
+          'Content-Type': 'application/json',
+          'X-Content-Type-Options': 'nosniff',
+          'X-Frame-Options': 'DENY',
+          'X-RateLimit-Limit': '100',
+          'X-RateLimit-Window': '60',
+          'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production'
+            ? 'https://airdrop-kriptaz.vercel.app'
+            : '*'
         }
       }
     );
@@ -117,16 +124,76 @@ export async function GET(): Promise<NextResponse> {
 
 /**
  * OPTIONS /api/v1/price
- * CORS preflight handler
+ * CORS preflight handler with security restrictions
  */
 export async function OPTIONS(): Promise<NextResponse> {
   return new NextResponse(null, {
     status: 200,
     headers: {
-      'Access-Control-Allow-Origin': '*',
+      // Restrict CORS to specific domains in production
+      'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production'
+        ? 'https://airdrop-kriptaz.vercel.app'
+        : '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Max-Age': '86400'
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Max-Age': '3600', // Reduced from 24h to 1h
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY'
     }
   });
+}
+
+/**
+ * Unsupported HTTP methods for price endpoint
+ * Price data is read-only and comes from external sources
+ */
+export async function POST(): Promise<NextResponse> {
+  return NextResponse.json(
+    {
+      success: false,
+      error: 'Price creation not supported',
+      message: 'Price data is fetched from external market APIs and cannot be manually created',
+      allowedMethods: ['GET', 'OPTIONS']
+    },
+    {
+      status: 405,
+      headers: {
+        'Allow': 'GET, OPTIONS'
+      }
+    }
+  );
+}
+
+export async function PUT(): Promise<NextResponse> {
+  return NextResponse.json(
+    {
+      success: false,
+      error: 'Price modification not supported',
+      message: 'Price data is determined by market conditions and cannot be manually updated',
+      allowedMethods: ['GET', 'OPTIONS']
+    },
+    {
+      status: 405,
+      headers: {
+        'Allow': 'GET, OPTIONS'
+      }
+    }
+  );
+}
+
+export async function DELETE(): Promise<NextResponse> {
+  return NextResponse.json(
+    {
+      success: false,
+      error: 'Price deletion not supported',
+      message: 'Price data is essential market information and cannot be deleted',
+      allowedMethods: ['GET', 'OPTIONS']
+    },
+    {
+      status: 405,
+      headers: {
+        'Allow': 'GET, OPTIONS'
+      }
+    }
+  );
 }

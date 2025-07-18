@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { SEOConfig, PageSEOProps, BreadcrumbItem, FAQItem } from '@/types/seo';
+import { SEOConfig, PageSEOProps, BreadcrumbItem, FAQItem } from '@/shared/types/seo';
 import { siteConfig, defaultSEO } from '@/config/site';
 
 /**

@@ -3,7 +3,7 @@
  * Automated testing framework for SEO compliance
  */
 
-import { SEOConfig } from '@/types/seo';
+import { SEOConfig } from '@/shared/types/seo';
 
 export interface SEOTestResult {
   test: string;
