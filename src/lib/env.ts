@@ -9,6 +9,16 @@ interface EnvironmentVariables {
   DB_CONNECTION_TIMEOUT?: number;
   DB_MAX_POOL_SIZE?: number;
   DB_MIN_POOL_SIZE?: number;
+  // API Configuration
+  API_VERSION?: string;
+  PRICE_CACHE_TTL?: number;
+  PRICE_UPDATE_INTERVAL?: number;
+  // Security Configuration
+  ALLOWED_ORIGINS?: string;
+  MAX_SSE_CONNECTIONS?: number;
+  SSE_CONNECTION_TIMEOUT?: number;
+  // External APIs
+  ALCHEMY_API_KEY?: string;
 }
 
 /**
@@ -21,6 +31,16 @@ export function validateEnv(): EnvironmentVariables {
     DB_CONNECTION_TIMEOUT: process.env.DB_CONNECTION_TIMEOUT ? parseInt(process.env.DB_CONNECTION_TIMEOUT) : 10000,
     DB_MAX_POOL_SIZE: process.env.DB_MAX_POOL_SIZE ? parseInt(process.env.DB_MAX_POOL_SIZE) : 10,
     DB_MIN_POOL_SIZE: process.env.DB_MIN_POOL_SIZE ? parseInt(process.env.DB_MIN_POOL_SIZE) : 2,
+    // API Configuration
+    API_VERSION: process.env.API_VERSION || 'v1',
+    PRICE_CACHE_TTL: process.env.PRICE_CACHE_TTL ? parseInt(process.env.PRICE_CACHE_TTL) : 20000,
+    PRICE_UPDATE_INTERVAL: process.env.PRICE_UPDATE_INTERVAL ? parseInt(process.env.PRICE_UPDATE_INTERVAL) : 10000,
+    // Security Configuration
+    ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS,
+    MAX_SSE_CONNECTIONS: process.env.MAX_SSE_CONNECTIONS ? parseInt(process.env.MAX_SSE_CONNECTIONS) : 50,
+    SSE_CONNECTION_TIMEOUT: process.env.SSE_CONNECTION_TIMEOUT ? parseInt(process.env.SSE_CONNECTION_TIMEOUT) : 300000,
+    // External APIs
+    ALCHEMY_API_KEY: process.env.ALCHEMY_API_KEY,
   };
 
   // Check for missing required variables

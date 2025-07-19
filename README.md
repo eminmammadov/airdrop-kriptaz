@@ -24,7 +24,7 @@ src/
 │   ├── links.ts              # Centralized link management
 │   └── site.ts               # Site configuration
 ├── types/                     # TypeScript definitions
-├── constants/                 # Application constants
+├── shared/constants/          # Application constants
 └── components/                # React components
 ```
 

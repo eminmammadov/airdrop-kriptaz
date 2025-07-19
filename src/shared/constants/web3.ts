@@ -11,7 +11,7 @@ export const REOWN_CONFIG = {
   APP_NAME: process.env.NEXT_PUBLIC_APP_NAME || 'Airdrop Kriptaz',
   APP_DESCRIPTION: process.env.NEXT_PUBLIC_APP_DESCRIPTION || 'KA Token airdrop platform',
   APP_URL: process.env.NEXT_PUBLIC_APP_URL || APP_LINKS.production,
-  APP_ICON: process.env.NEXT_PUBLIC_APP_ICON || 'https://avatars.githubusercontent.com/u/179229932'
+  APP_ICON: process.env.NEXT_PUBLIC_APP_ICON || 'https://docs.kriptaz.com/ka.jpg'
 } as const;
 
 // Network Configuration

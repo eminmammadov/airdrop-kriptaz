@@ -3,7 +3,7 @@
  * Prevents API bugs while allowing natural price growth
  */
 
-import { PRICE_CONFIG } from '@/constants/api';
+import { PRICE_CONFIG } from '@/shared/constants/api';
 import { PriceData } from '@/types/api';
 
 export class PriceValidatorService {

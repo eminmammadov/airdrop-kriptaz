@@ -4,7 +4,7 @@
  */
 
 import { PriceData, KuruMarketData, ApiResponse } from '@/types/api';
-import { KURU_API, KA_TOKEN } from '@/constants/api';
+import { KURU_API, KA_TOKEN } from '@/shared/constants/api';
 import { PriceValidatorService } from '@/services/validation/price-validator.service';
 
 export class KuruApiService {

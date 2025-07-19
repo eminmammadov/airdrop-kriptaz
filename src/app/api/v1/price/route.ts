@@ -103,7 +103,7 @@ export async function GET(): Promise<NextResponse> {
           'X-RateLimit-Limit': '100',
           'X-RateLimit-Window': '60',
           'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production'
-            ? 'https://airdrop-kriptaz.vercel.app'
+            ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://airdrop-kriptaz.vercel.app')
             : '*'
         }
       }
@@ -132,7 +132,7 @@ export async function OPTIONS(): Promise<NextResponse> {
     headers: {
       // Restrict CORS to specific domains in production
       'Access-Control-Allow-Origin': process.env.NODE_ENV === 'production'
-        ? 'https://airdrop-kriptaz.vercel.app'
+        ? (process.env.NEXT_PUBLIC_SITE_URL || 'https://airdrop-kriptaz.vercel.app')
         : '*',
       'Access-Control-Allow-Methods': 'GET, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',

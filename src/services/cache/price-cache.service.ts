@@ -4,7 +4,7 @@
  */
 
 import { PriceData } from '@/types/api';
-import { CACHE_CONFIG } from '@/constants/api';
+import { CACHE_CONFIG } from '@/shared/constants/api';
 
 interface CacheEntry {
   data: PriceData;
